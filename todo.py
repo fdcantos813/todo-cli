@@ -33,7 +33,13 @@ def complete(index):
     todos[index - 1]["done"] = True
     save(todos)
     print(f"Completed: {todos[index - 1]['task']}")
-
+    
+def delete(index):
+    todos = load()
+    removed = todos.pop(index - 1)
+    save(todos)
+    print(f"Deleted: {removed['task']}")
+    
 def main():
     import sys
     args = sys.argv[1:]
@@ -43,8 +49,10 @@ def main():
         add(" ".join(args[1:]))
     elif args[0] == "done":
         complete(int(args[1]))
+    elif args[0] == "delete":
+        delete(int(args[1]))
     else:
-        print("Usage: python todo.py [add <task> | done <number>]")
+        print("Usage: python todo.py [add <task> | done <number> | delete <number>]")
 
 if __name__ == "__main__":
     main()
